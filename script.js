@@ -233,6 +233,7 @@ console.log(n.startsWith('f')); // returns False
 console.log(n.repeat(5));
 console.log(`${firstName} ` .repeat(5)); // we can use litteral template to add a space inside repeated strings
 
+
 // ARROW FUNCTIONS
 
 const years = [1987, 1988, 1995, 2000];
@@ -240,20 +241,210 @@ const years = [1987, 1988, 1995, 2000];
 // ES5 
 
 // in ES5 , we used map method to loop through array , with a callback function and with an argument called el for example
+// As we know , map method loops over the array -> we have access to the current element , 
+// the current index , and also the entire array
+
+/* Differences between map and forEach : Well, the forEach() method doesn’t actually return anything (undefined). 
+It simply calls a provided function on each element in your array. 
+This callback is allowed to mutate the calling array.
+Meanwhile, the map() method will also call a provided function on every element in the array. 
+
+The difference is that map() utilizes return values and actually returns a new Array of the same size.
+forEach() may be preferable when you’re not trying to change the data in your array, 
+but instead want to just do something with it — like saving it to a database or logging it out:
+
+And map() might be preferable when changing or altering data. Not only is it faster but it returns a new Array. 
+This means we can do cool things like chaining on other methods ( map(), filter(), reduce(), etc.)
+
+
+forEach example: 
+let arr = ['a', 'b', 'c', 'd'];
+arr.forEach((letter) => {
+    console.log(letter);
+});
+// a
+// b
+// c
+// d
+
+map example :
+
+let arr = [1, 2, 3, 4, 5];
+let arr2 = arr.map(num => num * 2).filter(num => num > 5);
+// arr2 = [6, 8, 10
+
+What we’re doing above is first mapping over arr 
+and multiplying every element in the array times 2. 
+After this, we filter through the array and only save the elements that are greater than 5.
+ This leaves us with a final arr2 of [6,8,10].
+*/
+
 
 var ages5 = years.map(function(el) {
   return 2019 - el;
 });
+
+// map method creates a new array called ages5 
 
 console.log(ages5);
 
 // ES6
 // We can use a better way , with arrow function and map method
 
+// 3 WAYS TO WRITE ARROW FUNCTIONS 
+
+// 1)
+
+
 let ages6 = years.map(el => 2019 - el);
 
 console.log(ages6);
 
+/* So this one here is going to produce the exact same thing
+as all of this piece of code up here.
+So for a simple callback function like this here
+with only one argument, it really is as simple as this.
+So there's no function keyword, no return keyword,
+no parenthesis nor curly braces,
+all we need is the argument, the arrow,
+and then what we have in our return statement.*/
+
+// 2)
+
 ages6 = years.map((el, index) => `Age element ${index + 1}: ${2016-el}.`);
 
 console.log(ages6);
+
+
+// 3)
+
+ages6 = years.map((el, index) => {
+  const now = new Date().getFullYear();
+  const age = now - el;
+  return `Age element ${index + 1}: ${age}.`
+});
+
+console.log(ages6);
+
+/*Alright and again, I want more than one line of code,
+and therefore I need to use these curly braces.
+So let's create a variable here,
+which is the current year, right?
+So that it makes sense that we have more than one line.
+Alright, and we can also calculate the eight here outside,
+so let's say now minus the current element.
+And then let me return this string that we had before.
+So this one here.
+And remember that in this case
+I actually have to write out the return statement here,
+the return keyword.
+Now here I want age and that's it.*/
+
+
+/*So there are three ways of writing arrow functions.
+First one is put one argument and one line of code
+and that's the simplest form.
+If we then add another argument,
+we know to use the parentheses.
+And if we then add more lines of code,
+more than one, then we have to use the curly braces
+and the return keyword at the end.*/
+
+
+// ARROW FUNCTIONS PART 2 Lexical This Keyword
+
+
+// ES5
+/*
+var box5 = {
+  color: 'green',
+  position: 1,
+  clickMe: function() {
+    
+    document.querySelector('.green').addEventListener('click', function() {
+      var str = 'This box number ' + this.position + ' and it is ' 
+      + this.color;
+      alert(str);
+    });
+  }
+}
+box5.clickMe();
+*/
+
+
+/*So I'm now going to click on this box here.
+And it says, this is box number undefined
+and it's undefined.
+Okay, so, why is this happening?
+Why is it not reading our values from this object here?
+So, green and one.
+And the reason for that is something that I said
+in the very beginning of the course,
+and that is, that only the method call,
+the this keyword, actually points to that object.
+But in a regular function call, the this keyword
+will always point to the global object,
+which, in the case of the browser, is the window object.
+And that is exactly what happens here.
+So, this clickMe method is a function attached to an object.
+So it's a method, and so in here,
+we have access to the color and to position
+by using the this keyword, right?
+But then, this callback function that we have here
+and this event handler here is not a method,
+it's a regular function call, and therefore,
+the this keyword here does not point to this box5 object,
+but instead, it points to the window object.
+And, of course, position and color
+are not defined in the window object.
+And therefore, what we have here
+is undefined for both of these.
+
+Now, a very common pattern to avoid this
+is to simply create a new variable 
+and store the this variable in that new variable like this.*/
+
+/*
+  var box5 = {
+  color: 'green',
+  position: 1,
+  clickMe: function() {
+    
+    var self = this;
+    document.querySelector('.green').addEventListener('click', function() {
+      var str = 'This box number ' + self.position + ' and it is ' 
+      + self.color;
+      alert(str);
+    });
+  }
+}
+box5.clickMe();
+*/
+
+
+// ES6 way to make this same arrow function
+
+const box6 = {
+  color: 'green',
+  position: 1,
+  clickMe: function() {
+    
+    document.querySelector('.green').addEventListener('click',() => {
+      var str = 'This box number ' + this.position + ' and it is ' 
+      + this.color;
+      alert(str);
+    });
+  }
+}
+box6.clickMe();
+
+/* Remember that when we don't have any arguments
+or if we have more than one argument,
+we have to specify the parenthesis.
+So we do that, then the arrow,
+and then our function body, which is this.
+And it's actually as simple as this.
+So now, in here we have a function
+that shares the this keyword with its surrounding*/
+
+// THE ARROW FUNCTION SHARES THE LEXICAL THIS KEYWORD OF ITS SURROUNDING
