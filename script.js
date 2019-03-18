@@ -160,15 +160,19 @@ we have the final i from this counter variable here.*/
 // ES6
 
 // We can make data privacy with a simpler way in ES6 
-
+/*
 {
 
-    let a = 10;
+let a = 10;
 const b = 15;
 
 }
 
 console.log(a);
+
+*/
+
+
 // We can see that ours variables a and b are not visible from outside the block
 // in ES6, we can create a new block with a for loop, an if else statement, a function but also
 // only with {} symbols , thats means all code included inside our {} is not accessible from outside
@@ -179,10 +183,77 @@ console.log(a);
 
 // In ES5 , we have to create an IIFE in order to make our data privacy like this
 
-(function() {
+/*(function () {
 
-var c = 19;
+    var c = 19;
 
-})
+});
 
 console.log(c);
+*/
+
+// Strings in ES6
+
+// We are used to concatenate like this 
+
+let firstName = 'Nathaniel';
+
+let lastName = 'Debache';
+
+const yearOfBirth = 1987;
+
+function calcAge(yearOfBirth) {
+    return 2019 - yearOfBirth;
+}; 
+
+console.log('Hello my name is ' + firstName + ' ' + lastName + 
+' i am born in ' + yearOfBirth + ' and today i have ' + calcAge(yearOfBirth) + ' years');
+
+
+// ES6 introduces an easier way to concatenate.
+// WE JUST HAVE TO USE `` and ${} for variables 
+
+console.log(`Hello my name is ${firstName} ${lastName} 
+i'am born in ${yearOfBirth} and today i'have ${calcAge(yearOfBirth)} years !`);
+
+
+
+// Another new feature in ES6 TO CHECK if a string includes, starts or end with a defined letter or letters
+
+const n = `${firstName} ${lastName}`;
+console.log(n.startsWith('N')); // returns True
+console.log(n.endsWith('e')); // returns True
+console.log(n.includes('Deb')); // returns True
+console.log(n.startsWith('f')); // returns False
+
+
+// Finally , we can also repeat a string with ES6 with a new built in method
+
+
+console.log(n.repeat(5));
+console.log(`${firstName} ` .repeat(5)); // we can use litteral template to add a space inside repeated strings
+
+// ARROW FUNCTIONS
+
+const years = [1987, 1988, 1995, 2000];
+
+// ES5 
+
+// in ES5 , we used map method to loop through array , with a callback function and with an argument called el for example
+
+var ages5 = years.map(function(el) {
+  return 2019 - el;
+});
+
+console.log(ages5);
+
+// ES6
+// We can use a better way , with arrow function and map method
+
+let ages6 = years.map(el => 2019 - el);
+
+console.log(ages6);
+
+ages6 = years.map((el, index) => `Age element ${index + 1}: ${2016-el}.`);
+
+console.log(ages6);
