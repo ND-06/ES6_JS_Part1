@@ -424,7 +424,7 @@ box5.clickMe();
 
 // ES6 way to make this same arrow function
 
-const box6 = {
+/*const box6 = {
   color: 'green',
   position: 1,
   clickMe: function() {
@@ -437,6 +437,23 @@ const box6 = {
   }
 }
 box6.clickMe();
+*/
+
+// another example for the blue box with arrow function
+
+
+const box6 = {
+  color: 'blue',
+  position: 2,
+  clickMe: function () {
+    document.querySelector('.blue').addEventListener('click', () => {
+      var string = `The color of this box is ${this.color} and its position is ${this.position}`;
+      alert(string);
+    });
+  }
+}
+
+box6.clickMe();
 
 /* Remember that when we don't have any arguments
 or if we have more than one argument,
@@ -448,3 +465,40 @@ So now, in here we have a function
 that shares the this keyword with its surrounding*/
 
 // THE ARROW FUNCTION SHARES THE LEXICAL THIS KEYWORD OF ITS SURROUNDING
+
+/*function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.myFriends5 = function (friends) {
+  var arr = friends.map(function(el)
+  {
+    return this.name + ' is friend with ' + el;
+  }.bind(this));
+  console.log(arr);
+}
+
+var friends = ['Bob', 'Jane', 'Mark'];
+new Person('John').myFriends5(friends);
+*/
+// instead of var self , we can also use bind method to copy, and that will work !
+
+
+// ES6 Way
+
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.myFriends6 = function (friends) {
+  let arr = friends.map(el => 
+    `${this.name} is friend with ${el}`);
+  console.log(arr);
+};
+
+let friends = ['Bob', 'Jane', 'Mark'];
+new Person('John').myFriends6(friends);
+
+
+
+
